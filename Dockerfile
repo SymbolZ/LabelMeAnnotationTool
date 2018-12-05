@@ -3,8 +3,8 @@ FROM ubuntu:16.04
 RUN apt-get update -y &&\
 	apt-get install apt-transport-https -y
 
-COPY ./99fixbadproxy /etc/apt/apt.conf.d
-COPY ./sources.list /etc/apt/sources.list
+COPY ./DockerFiles/ubuntu_16.04/99fixbadproxy /etc/apt/apt.conf.d
+COPY ./DockerFiles/ubuntu_16.04/sources.list /etc/apt/sources.list
 # update ubuntu config
 RUN apt-get update -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
@@ -28,12 +28,14 @@ RUN a2enmod rewrite
 RUN a2enmod cgi
 
 # apache2 configuration: enabling SSI and perl/CGI scripts  
-COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
-COPY apache2.conf /etc/apache2/apache2.conf
+COPY ./DockerFiles/ubuntu_16.04/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY ./DockerFiles/ubuntu_16.04/apache2.conf /etc/apache2/apache2.conf
 
 #Clone LabelMe,move it and make
-RUN git clone https://github.com/CSAILVision/LabelMeAnnotationTool.git
-RUN mv ./LabelMeAnnotationTool/ /var/www/html/LabelMeAnnotationTool/
+RUN mkdir /var/www/html/LabelMeAnnotationTool/
+ADD ./labelMe.tar.gz /var/www/html/LabelMeAnnotationTool/
+RUN ls -la /var/www/html/LabelMeAnnotationTool/
+
 RUN cd /var/www/html/LabelMeAnnotationTool/ && make
 RUN chown -R www-data:www-data /var/www/html
 

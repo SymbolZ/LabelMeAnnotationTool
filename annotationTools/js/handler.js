@@ -66,7 +66,7 @@ function handler() {
       if(document.getElementById('objEnter')) new_name = RemoveSpecialChars(document.getElementById('objEnter').value);
       else new_name = RemoveSpecialChars(adjust_objEnter);
       
-      var re = /[a-zA-Z0-9]/;
+      var re = /[\u4e00-\u9fa5_a-zA-Z0-9]/;
       if(!re.test(new_name)) {
 	alert('Please enter an object name');
 	return;
@@ -238,7 +238,7 @@ function handler() {
       
       if((object_choices!='...') && (object_choices.length==1)) {
 	nn = RemoveSpecialChars(object_choices[0]);
-	  var re = /[a-zA-Z0-9]/;
+    var re = /[\u4e00-\u9fa5_a-zA-Z0-9]/;
 	  if(!re.test(nn)) {
 	    alert('Please enter an object name');
 	    return;
@@ -259,7 +259,7 @@ function handler() {
       }
       else {
 	nn = RemoveSpecialChars(document.getElementById('objEnter').value);
-	var re = /[a-zA-Z0-9]/;
+  var re = /[\u4e00-\u9fa5_a-zA-Z0-9]/;
 	if(!re.test(nn)) {
 	   alert('Please enter an object name');
 	   return;

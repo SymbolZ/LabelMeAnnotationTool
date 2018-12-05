@@ -542,7 +542,7 @@ function video(id) {
       if(document.getElementById('objEnter')) new_name = RemoveSpecialChars(document.getElementById('objEnter').value);
       else new_name = RemoveSpecialChars(adjust_objEnter);
       
-      var re = /[a-zA-Z0-9]/;
+      var re = /[\u4e00-\u9fa5_a-zA-Z0-9]/;
       if(!re.test(new_name)) {
         alert('Please enter an object name');
         return;
@@ -606,7 +606,7 @@ function video(id) {
               anno = draw_anno;
               draw_anno = null;
             }
-            var re = /[a-zA-Z0-9]/;
+            var re = /[\u4e00-\u9fa5_a-zA-Z0-9]/;
             if(!re.test(nn)) {
                 alert('Please enter an object name');
                 return;
@@ -614,7 +614,7 @@ function video(id) {
         }
         else {
             nn = RemoveSpecialChars(document.getElementById('objEnter').value);
-            var re = /[a-zA-Z0-9]/;
+            var re = /[\u4e00-\u9fa5_a-zA-Z0-9]/;
             if(!re.test(nn)) {
                 alert('Please enter an object name');
                 return;

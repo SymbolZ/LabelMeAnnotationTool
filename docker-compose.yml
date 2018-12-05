@@ -1,0 +1,11 @@
+version: "3.4"
+
+services:
+    labelMe:
+      image: labelme:latest
+      volumes:
+        - "./Images:/var/www/html/LabelMeAnnotationTool/Images"
+        - "./Annotations:/var/www/html/LabelMeAnnotationTool/Annotations"
+      ports:
+        - "8080:80"
+
