@@ -8,4 +8,15 @@ services:
         - "./Annotations:/var/www/html/LabelMeAnnotationTool/Annotations"
       ports:
         - "8080:80"
+    DB:
+      image: 'mysql/mysql-server:5.7'
+      container_name: mysql
+      restart: always
+      ports:
+        - "4306:3306"
+      volumes:
+        - ./mysql/config/my.cnf:/etc/my.cnf
+        - ./mysql/init:/docker-entrypoint-initdb.d/
+      depends_on:
+        - "labelMe"
 

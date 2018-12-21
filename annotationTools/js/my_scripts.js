@@ -85,6 +85,8 @@ function ShowPrevImage() {
     main_media.GetFileInfo().FetchPrevImage();
     LoadNewMedia();
   }
+  arr = (""+main_media.GetFileInfo().GetFullName()).split("/");
+  document.getElementById("presentImg").innerHTML=arr[arr.length - 1];
 }
 function ShowNextImage() {
   if(wait_for_input) return WaitForInput();
@@ -96,13 +98,14 @@ function ShowNextImage() {
 
   // Remove the object list:
   RemoveObjectList();
-
   // Get a new image and reset URL to reflect new image:
   if (video_mode) main_media.GetFileInfo().SetURL(document.URL);
   else {
     main_media.GetFileInfo().FetchImage();
     LoadNewMedia();
   }
+  arr = (""+main_media.GetFileInfo().GetFullName()).split("/");
+  document.getElementById("presentImg").innerHTML=arr[arr.length - 1];
 }
 
 function InsertServerLogData(modifiedControlPoints) {

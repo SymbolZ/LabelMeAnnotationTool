@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 
 use strict;
+use DBI;
 use CGI;
 use CGI::Carp qw ( fatalsToBrowser );
 
@@ -13,6 +14,36 @@ my $username = $query->param("username");
 my $collection = $query->param("collection");
 my $folder = $query->param("folder");
 my $image = $query->param("image");
+
+my ($user,$password)  =split(/_/, $username);
+
+if(!$user)
+{
+    print "Content-type:text/html\n\n";
+    print "please input user and password";
+    exit;
+}
+if(!$password)
+{
+    print "Content-type:text/html\n\n";
+    print "please input user and password";
+    exit;
+}
+
+my $dbh = DBI->connect("DBI:mysql:LabelMe:DB", 'username', 'password');
+my $sth = $dbh->prepare("SELECT * FROM user WHERE username='$user' and password='$password'");
+
+$sth->execute();
+
+if(not $sth->fetchrow_array())
+{
+    print "Content-type:text/html\n\n";
+    print "invalid password and username";
+    exit;
+}
+$sth->finish();
+$dbh->disconnect();
+
 
 my $im_dir;
 my $im_file;
